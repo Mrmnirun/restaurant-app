@@ -1,0 +1,9 @@
+export const LOGIN = "Login";
+export const SIGNUP = "Sign Up";
+export const HOME = "Home";
+export const HOTEL = "Hotel";
+export const RESTAURANT = "Restaurant";
+export const MEALS = "Meals";
+export const ROOMS = "Rooms";
+export const REVIEWS = "Reviews";
+export const HOME_NAVIGATOR = "Home Navigator";
