@@ -3,11 +3,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import DrawerNavigator from "./DrawerNavigator";
 import ChefDrawerNavigator from "./ChefDrawerNavigator";
+import WaiterDrawerNavigator from './WaiterDrawerNavigator';
+import VirtualWaiterStackNavigator from './VirtualWaiterStackNavigator';
 const AppNavContainer = () => {
   const isLoggedIn = true;
   return (
     <NavigationContainer>
-       <ChefDrawerNavigator />
+       {/* <ChefDrawerNavigator /> */}
+       {/* <WaiterDrawerNavigator /> */}
+       < VirtualWaiterStackNavigator />
       {/* {isLoggedIn ? <DrawerNavigator /> : <AuthNavigator />} */}
     </NavigationContainer>
   );
