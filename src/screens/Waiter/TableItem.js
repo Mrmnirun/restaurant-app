@@ -7,8 +7,7 @@ const TableItem = ({table, handleStateChange}) => {
     
     return (
         <Card>
-              <Text>Table number= { table?.table }</Text>
-              <Text>Orders</Text>
+              <Text style={styles.text}>Orders for the table no:  { table?.table }</Text>
               {table.orders.map((order, id)=>(
                   <TableOrderItem key={id} order={order} handleStateChange={handleStateChange}/>
               ))}
@@ -24,11 +23,12 @@ const styles = StyleSheet.create({
       paddingTop: 5,
     },
     orderItem: {
-      backgroundColor: 'rgb(0, 64, 84)',
+      backgroundColor: '#BAEFBE',
       color: 'white',
       padding: 5
     },
     text: {
-      fontSize: 42,
+      fontSize: 20,
+      color:'#888'
     },
 });

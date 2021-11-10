@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, ScrollView  } from 'react-native';
 import Card from "../../shared/card";
 import { useIsFocused } from "@react-navigation/native";
 import PendingItem from './singleItems/PendingItem'
+import api from '../../config'
 
 export default function Finished({navigation,route}) {
     const isFocused = useIsFocused();
@@ -12,7 +13,7 @@ export default function Finished({navigation,route}) {
     useEffect(() => {
       if(!isFocused) return
       setOrders([])
-        fetch('http://192.168.1.35:8000/api/auth/staff/login', {
+        fetch(`${api}/api/auth/staff/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -26,7 +27,7 @@ export default function Finished({navigation,route}) {
         .then(response=> response.json())
         .then(({token})=>{
             setToken(token)
-            return fetch('http://192.168.1.35:8000/api/order/get_orders',
+            return fetch(`${api}/api/order/get_orders`,
             {
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -47,7 +48,7 @@ export default function Finished({navigation,route}) {
     useEffect(()=>{
         if (!token) return
         if(!isFocused) return
-        fetch('http://192.168.1.35:8000/api/menu_items',
+        fetch(`${api}/api/menu_items`,
             {
               method: 'GET',
                 headers: {
@@ -62,7 +63,7 @@ export default function Finished({navigation,route}) {
     }, [isFocused, token])
 
 const handleStateChange = (orderId) => {
-  return fetch('http://192.168.1.35:8000/api/order/update',
+  return fetch(`${api}/api/order/update`,
             {
               method: 'POST',
                 headers: {
@@ -97,11 +98,11 @@ const handleStateChange = (orderId) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 5,
+      paddingTop: 0,
     },
     scrollView: {
-      backgroundColor: 'rgb(34, 34, 34)',
-      marginHorizontal: 20,
+      backgroundColor: '#ccc',
+      marginHorizontal: 0,
     },
     text: {
       fontSize: 42,

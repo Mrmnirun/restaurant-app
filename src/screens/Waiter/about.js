@@ -44,37 +44,56 @@ export default function About() {
         })
   }, [])
   return (
-    <View >
-      <Text >About Screen</Text>
-      <Table borderStyle={{borderWidth: 1, borderColor: '#ffa1d2'}}>
-          <Rows data={[['First name', edit?<TextInput value={user?.first_name} editable={true} onChangeText={text=>handleChange(text, 'first_name')}/>:user?.first_name]]} textStyle={styles.TableText}/>
-          <Rows data={[['Last name', edit?<TextInput value={user?.last_name} editable={true} onChangeText={text=>handleChange(text, 'last_name')}/>:user?.last_name]]} textStyle={styles.TableText}/>
-          <Rows data={[['User name', edit?<TextInput value={user?.username} editable={true} onChangeText={text=>handleChange(text, 'username')}/>:user?.username]]} textStyle={styles.TableText}/>
-          <Rows data={[['Email', edit?<TextInput value={user?.email} editable={true} onChangeText={text=>handleChange(text, 'email')}/>:user?.email]]} textStyle={styles.TableText}/>
+    <View style={styles.container}>
+      <Table borderStyle={{borderWidth: 0, borderColor: '#ffa1d2'}}>
+          <Rows style={styles.row} data={[['First name', edit?<TextInput style={styles.input} value={user?.first_name} editable={true} onChangeText={text=>handleChange(text, 'first_name')}/>:user?.first_name]]} textStyle={styles.TableText}/>
+          <Rows style={styles.row2} data={[['Last name', edit?<TextInput style={styles.input}value={user?.last_name} editable={true} onChangeText={text=>handleChange(text, 'last_name')}/>:user?.last_name]]} textStyle={styles.TableText}/>
+          <Rows style={styles.row} data={[['User name', edit?<TextInput style={styles.input} value={user?.username} editable={true} onChangeText={text=>handleChange(text, 'username')}/>:user?.username]]} textStyle={styles.TableText}/>
+          <Rows style={styles.row2} data={[['Email', edit?<TextInput style={styles.input} value={user?.email} editable={true} onChangeText={text=>handleChange(text, 'email')}/>:user?.email]]} textStyle={styles.TableText}/>
         </Table>
+        <View style={styles.btnCnt}>
         {edit
         ?<Button title="Save changes" onPress={() =>{ setEdit(false) }}/>
         :<Button title="Edit Profile" onPress={() =>{ setEdit(true) }}/>
         }
+        </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: { 
-      flex: 1,
-      padding: 18,
-      paddingTop: 35,
-      backgroundColor: '#ffffff' 
-    },
-    HeadStyle: { 
-      height: 50,
-      alignContent: "center",
-      backgroundColor: '#ffe0f0'
-    },
-    TableText: { 
-      margin: 10,
-      padding: 10,
+  container: { 
+    flex: 1,
+    padding: 18,
+    paddingTop: 35,
+    backgroundColor: '#ffffff' 
+  },
+  HeadStyle: { 
+    height: 50,
+    alignContent: "center",
+    backgroundColor: '#ffe0f0'
+  },
+  TableText: { 
+    margin: 10,
+    padding: 10,
 
-    }
+  },
+  row: {
+    height: 60, 
+    backgroundColor: '#BAEFBE',
+  },
+  row2: {
+    height: 60, 
+    backgroundColor: '#F6F7Fb',
+  },
+  btnCnt: {
+    marginTop: 40
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'black',
+    height: 40,
+    borderRadius: 5,
+    paddingHorizontal: 10
+  }
   });

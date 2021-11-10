@@ -4,13 +4,17 @@ import { StyleSheet, View, Text, TouchableOpacity, FlatList,Button, Alert, Scrol
 const TableOrderItem = ({order, handleStateChange}) => {
     return (
         <>
-            <Text style={styles.orderItem}>
-                {order.id} - :
-                <Text style={styles.status}>{order.status}</Text>
-                {order.status==='created' && <Button title="Deliver" style={styles.button}  onPress={() =>handleStateChange(order?.id)}/>}
-                {order.status==='being_delivered' && <Button title="Delivered" style={styles.button} onPress={() =>handleStateChange(order?.id)}/>}
+          <View style={styles.orderItem}>
+            <Text style={{...styles.orderItem, width: 120}}>Order no {order.id} :  
+                
+                
             </Text>
-            
+            <Text style={{...styles.status}}>  {order.status}</Text>
+            <View style={{alignItems: 'flex-end', marginLeft: 5}}>
+            {order.status==='created' && <Button title="Deliver" style={styles.button}  onPress={() =>handleStateChange(order?.id)}/>}
+                {order.status==='being_delivered' && <Button title="Delivered" style={styles.button} onPress={() =>handleStateChange(order?.id)}/>}
+            </View>
+          </View>  
         </>
     );
 }
@@ -23,15 +27,23 @@ const styles = StyleSheet.create({
       paddingTop: 5,
     },
     orderItem: {
-      backgroundColor: 'rgb(0, 64, 84)',
-      color: 'white',
-      padding: 5
+      backgroundColor: '#BAEFBE',
+      color: 'black',
+      marginLeft:0,
+      padding: 10,
+      display: 'flex',
+      flexDirection: 'row'
     },
     status: {
       fontSize: 16,
-      color: 'pink',
+      color: 'black',
       padding: 15,
-      borderRadius: 5
+      borderRadius: 5,
+      backgroundColor: '#009900',
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      width: 110,
+      textAlign: 'center'
     },
     button: {
         marginStart: 10

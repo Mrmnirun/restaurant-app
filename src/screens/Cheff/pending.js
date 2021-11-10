@@ -6,6 +6,7 @@ import { StyleSheet, View, Text, TouchableOpacity, FlatList,Button, Alert, Scrol
 import { useIsFocused } from "@react-navigation/native";
 import Card from "../../shared/card";
 import PendingItem from './singleItems/PendingItem'
+import api from '../../config'
 
 export default function Pending({ navigation, ...props }) {
     const isFocused = useIsFocused();
@@ -15,7 +16,7 @@ export default function Pending({ navigation, ...props }) {
     useEffect(() => {
       if(!isFocused) return
       setOrders([])
-        fetch('http://192.168.1.35:8000/api/auth/staff/login', {
+        fetch(`${api}/api/auth/staff/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -28,8 +29,9 @@ export default function Pending({ navigation, ...props }) {
     })
         .then(response=> response.json())
         .then(({token})=>{
+          console.log(token)
             setToken(token)
-            return fetch('http://192.168.1.35:8000/api/order/get_orders',
+            return fetch(`${api}/api/order/get_orders`,
             {
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -50,7 +52,7 @@ export default function Pending({ navigation, ...props }) {
     useEffect(()=>{
       if(!isFocused) return
         if (!token) return
-        fetch('http://192.168.1.35:8000/api/menu_items',
+        fetch(`${api}/api/menu_items`,
             {
               method: 'GET',
                 headers: {
@@ -65,7 +67,7 @@ export default function Pending({ navigation, ...props }) {
     }, [isFocused, token])
 
 const handleStateChange = (orderId) => {
-  return fetch('http://192.168.1.35:8000/api/order/update',
+  return fetch(`${api}/api/order/update`,
             {
               method: 'POST',
                 headers: {
@@ -98,7 +100,7 @@ const handleStateChange = (orderId) => {
 
   return (
     <ScrollView style={styles.scrollView}>
-    {renderList()}
+      {renderList()}
     </ScrollView>
   );
 }
@@ -109,10 +111,11 @@ const styles = StyleSheet.create({
       paddingTop: 5,
     },
     scrollView: {
-      backgroundColor: 'rgb(34, 34, 34)',
-      marginHorizontal: 20,
+      backgroundColor: '#ccc',
+      marginHorizontal: 0,
     },
     pendingItemStyle: {
-      color: 'pink',
+      color: 'red',
+      fontSize: 30
     },
   });

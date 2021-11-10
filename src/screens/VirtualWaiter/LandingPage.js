@@ -15,6 +15,11 @@ export default LandingPage = ({navigation}) => {
     //navigation.navigate('Bill');
     navigation.navigate('MenuItems');
   }
+
+  const tableHandler = () => {
+    //navigation.navigate('Bill');
+    navigation.navigate('SelectTable');
+  }
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -33,7 +38,16 @@ export default LandingPage = ({navigation}) => {
           <View style={styles.buttonContainer}>
             <Button
               title="LET'S START"
+              color="#008F68"
               onPress={pressHandler}
+              style={styles.button}
+            />
+          </View>
+          <View style={styles.changeTable}>
+            <Button
+              title="Change table"
+              color="#008F68"
+              onPress={tableHandler}
               style={styles.button}
             />
           </View>
@@ -46,18 +60,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        backgroundColor: '#000',
+        backgroundColor: '#fff',
         alignItems: 'center',
         width: '100%',
       },
       h1: {
         color: '#008F68',
         fontSize: 40,
+        fontWeight: 'bold'
       },
       h2: {
-        color: '#FAE042',
+        color: '#202124',
         fontSize: 18,
         marginTop: 8,
+        fontWeight: 'bold'
       },
     topContainer: {
         flex: 2,
@@ -93,8 +109,14 @@ const styles = StyleSheet.create({
       },
       image: {
         width: 300,
-        height: 260,
+        height: 300,
         justifyContent: 'center',
       },
-
+      changeTable: {
+        backgroundColor: '#008F68',
+        borderRadius: 5,
+        padding: 8,
+        margin: 8,
+        color: 'black'
+      },
 })

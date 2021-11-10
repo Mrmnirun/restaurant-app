@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, ScrollView, Text, Button } from 'react-native';
 import TableItem from './TableItem'
 import { useIsFocused } from "@react-navigation/native";
+import api from '../../config'
 
 export default function TableView({navigation}) {
     const isFocused = useIsFocused();
@@ -10,7 +11,7 @@ export default function TableView({navigation}) {
     const [tables, setTables] = useState([])
 
     const fetchData = () => {
-        fetch('http://192.168.1.35:8000/api/auth/staff/login', {
+        fetch(`${api}/api/auth/staff/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -24,7 +25,7 @@ export default function TableView({navigation}) {
           .then(response=> response.json())
           .then(({token})=>{
               setToken(token)
-              return fetch('http://192.168.1.35:8000/api/order/get_orders',
+              return fetch(`${api}/api/order/get_orders`,
               {
                   headers: {
                       'Authorization': `Token ${token}`,
@@ -62,7 +63,7 @@ export default function TableView({navigation}) {
       }, [orders])
 
       const handleStateChange = (orderId) => {
-        return fetch('http://192.168.1.35:8000/api/order/update',
+        return fetch(`${api}/api/order/update`,
                   {
                     method: 'POST',
                       headers: {
@@ -91,7 +92,6 @@ export default function TableView({navigation}) {
   return (
 
         <ScrollView> 
-            <Text> table view screen </Text>
             {tables.map((table, id)=> (
                 <TableItem key={id} table={table} handleStateChange={handleStateChange}/>
             ))}
@@ -112,6 +112,12 @@ const styles = StyleSheet.create({
   btnText: {
     color: "white",
     fontSize: 20,
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  Text: {
+    color: "black",
+    fontSize: 30,
     justifyContent: "center",
     textAlign: "center",
   },

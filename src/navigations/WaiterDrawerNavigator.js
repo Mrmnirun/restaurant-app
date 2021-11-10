@@ -12,7 +12,7 @@ const Drawer = createDrawerNavigator();
 export default function WaiterDrawerNavigator(){
     return(
         <Drawer.Navigator >
-        <Drawer.Screen name="TableView" component={TableView} />
+        <Drawer.Screen name="Table View" component={TableView} />
         <Drawer.Screen name="About" component={About} />
       </Drawer.Navigator>
     )

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, View, Text,Button, TextInput} from 'react-native';
+import { StyleSheet, View, Text,Button, TextInput, Alert} from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-
+import api from '../../config'
 
 export default function About() {
     const [user, setUser] = useState([])
@@ -11,7 +11,7 @@ export default function About() {
         setUser({...user, [field]: text})
     }
   useEffect(() => {
-    fetch('http://192.168.1.35:8000/api/auth/staff/login', {
+    fetch(`${api}/api/auth/staff/login`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -25,7 +25,7 @@ export default function About() {
         .then(response=> response.json())
         .then(({token})=>{
             console.log(token)
-            return fetch('http://192.168.1.35:8000/api/auth/staff/user',
+            return fetch(`${api}/api/auth/staff/user`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,18 +44,19 @@ export default function About() {
         })
   }, [])
   return (
-    <View >
-      <Text >About Screen</Text>
-      <Table borderStyle={{borderWidth: 1, borderColor: '#ffa1d2'}}>
-          <Rows data={[['First name', edit?<TextInput value={user?.first_name} editable={true} onChangeText={text=>handleChange(text, 'first_name')}/>:user?.first_name]]} textStyle={styles.TableText}/>
-          <Rows data={[['Last name', edit?<TextInput value={user?.last_name} editable={true} onChangeText={text=>handleChange(text, 'last_name')}/>:user?.last_name]]} textStyle={styles.TableText}/>
-          <Rows data={[['User name', edit?<TextInput value={user?.username} editable={true} onChangeText={text=>handleChange(text, 'username')}/>:user?.username]]} textStyle={styles.TableText}/>
-          <Rows data={[['Email', edit?<TextInput value={user?.email} editable={true} onChangeText={text=>handleChange(text, 'email')}/>:user?.email]]} textStyle={styles.TableText}/>
+    <View style={styles.container}>
+      <Table borderStyle={{borderWidth: 0, borderColor: '#ffa1d2'}}>
+          <Rows style={styles.row} data={[['First name', edit?<TextInput style={styles.input} value={user?.first_name} editable={true} onChangeText={text=>handleChange(text, 'first_name')}/>:user?.first_name]]} textStyle={styles.TableText}/>
+          <Rows style={styles.row2} data={[['Last name', edit?<TextInput style={styles.input} value={user?.last_name} editable={true} onChangeText={text=>handleChange(text, 'last_name')}/>:user?.last_name]]} textStyle={styles.TableText}/>
+          <Rows style={styles.row} data={[['User name', edit?<TextInput style={styles.input} value={user?.username} editable={true} onChangeText={text=>handleChange(text, 'username')}/>:user?.username]]} textStyle={styles.TableText}/>
+          <Rows style={styles.row2} data={[['Email', edit?<TextInput style={styles.input} value={user?.email} editable={true} onChangeText={text=>handleChange(text, 'email')}/>:user?.email]]} textStyle={styles.TableText}/>
         </Table>
+        <View style={styles.btnCnt}>
         {edit
-        ?<Button title="Save changes" onPress={() =>{ setEdit(false) }}/>
-        :<Button title="Edit Profile" onPress={() =>{ setEdit(true) }}/>
+        ?<Button color="#00b300" title="Save changes" onPress={() =>{ setEdit(false) }}/>
+        :<Button color="#00b300" title="Edit Profile" onPress={() =>{ setEdit(true) }}/>
         }
+        </View>
     </View>
   );
 }
@@ -76,5 +77,23 @@ const styles = StyleSheet.create({
       margin: 10,
       padding: 10,
 
+    },
+    row: {
+      height: 60, 
+      backgroundColor: '#BAEFBE',
+    },
+    row2: {
+      height: 60, 
+      backgroundColor: '#F6F7Fb',
+    },
+    btnCnt: {
+      marginTop: 40
+    },
+    input: {
+      borderWidth: 1,
+      borderColor: 'black',
+      height: 40,
+      borderRadius: 5,
+      paddingHorizontal: 10
     }
   });
