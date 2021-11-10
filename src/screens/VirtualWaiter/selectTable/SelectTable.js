@@ -4,9 +4,11 @@ import { StyleSheet, View, Text, SafeAreaView, FlatList,Button, Alert, ScrollVie
 // import api from '../../config'
 // import {useCart} from '../../context/CartContext'
 // import SingleMenuItem from './SingleMenuItem'
+import {useAuth} from '../../../context/AuthContext'
 import Table from './Table'
 
 const ViewCart = () => {
+    const {logout} = useAuth()
     // const {cart, changeSelection, clearCart} = useCart()
     // const {addItem} = useOrder()
     const [customer, setCustomer] = useState('')
@@ -100,6 +102,11 @@ const ViewCart = () => {
                                 }}
                             >Tables</Text>
                       </View>
+                    }
+                    ListFooterComponent={
+                        <View style={{marginTop: 20}}>
+                        <Button title="Logout" onPress={logout}/>
+                        </View>
                     }
                 />
             </SafeAreaView>

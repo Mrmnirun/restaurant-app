@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, Text,Button, TextInput, Alert} from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import api from '../../config'
+import {useAuth} from '../../context/AuthContext'
 
 export default function About() {
+  const {logout} = useAuth()
     const [user, setUser] = useState([])
     const [edit, setEdit] = useState(false)
 
@@ -56,6 +58,9 @@ export default function About() {
         ?<Button color="#00b300" title="Save changes" onPress={() =>{ setEdit(false) }}/>
         :<Button color="#00b300" title="Edit Profile" onPress={() =>{ setEdit(true) }}/>
         }
+        <View style={{marginTop: 20}}>
+        <Button color="#00b300" title="Logout" onPress={logout}/>
+        </View>
         </View>
     </View>
   );

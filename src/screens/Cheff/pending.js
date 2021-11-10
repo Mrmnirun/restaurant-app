@@ -11,6 +11,7 @@ import api from '../../config'
 export default function Pending({ navigation, ...props }) {
     const isFocused = useIsFocused();
   const [token, setToken] = useState('')
+  const [loading, setLoading] = useState(true)
     const [orders, setOrders] = useState([]);
     const [menuCardItems, setMenuItems] = useState([])
     useEffect(() => {
@@ -41,6 +42,7 @@ export default function Pending({ navigation, ...props }) {
         .then(response=> response.json())
         .then(data => {
             setOrders(data.orders||[])
+            setLoading(false)
         })
         .catch(error=>{
             console.log(error)
@@ -92,10 +94,13 @@ const handleStateChange = (orderId) => {
   
   // const flatListReviews = reviews
   const renderList = () => (
+    !orders.filter(order=>order.status == 'initialized').length ? <Text>No Items</Text> :
      orders.filter(order=>order.status == 'initialized').map((order,index)=>(
          <PendingItem item={order} key={index} menuCardItems={menuCardItems} handleStateChange={handleStateChange} style={styles.pendingItemStyle}/>
    ))
   )
+
+  if (loading) return <Text>Loading</Text>
  
 
   return (
